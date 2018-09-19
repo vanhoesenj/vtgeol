@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html>
+<head>
+
+<title>Vermont Geology</title>
+
+<script src="ext/jquery.min.js"></script>
+<script src="ext/modestmaps.min.js"></script>
+<script src="ext/wax/wax.mm.js"></script>
+<script src="ext/wax/wax.ext.js"></script>
+<script src="ext/easey.js"></script>
+<script src="ext/mmg.js"></script>
+<script src="map1.js"></script>
+<link href='css/controls.css' rel='stylesheet' type='text/css'/>
+<link href='css/style.css' rel='stylesheet' type='text/css'/>
+
+</head>
+
+<body>
+  <div id="sidebar">
+    <h2>Surfaces and Depths: Vermont Geology</h2>
+    <p>An exploration tool for Vermont's bedrock geology, surficial geology and soil types. More information available at the <a href="http://www.anr.state.vt.us/dec/geo/vgs.htm">Office of the State Geologist</a></p>
+    <ul class="layers">
+      <li><a data-control="layer" href="#bedrock" class="first" >Bedrock Geology</a><br />
+      <li><a data-control="layer" href="#surf" >Surficial Geology</a><br />
+      <li><a data-control="layer" href="#soils" >Soil Types</a><br />
+    </ul>
+    <div data-control='geocode' id="search">
+      <form class="geocode">
+        <input placeholder='Search for an address' type="text">
+        <input type='submit' />
+        <div id='geocode-error'></div>
+      </form>
+    </div><br /> 
+    
+  </div>
+  <div id="map" class="map"> 
+ 
+        <script type="text/javascript">
+    
+        // Make a new map in the #map element
+        var main = Map('map', {
+            // Specify the MapBox API url
+            api: 'http://api.tiles.mapbox.com/v3/mapbox.mapbox-lacquer.jsonp',
+            center: {
+                lat: 43.733653,      // Intial center point and zoom level.
+                lon: -72.6416,      // To find coordinates and zoom levels
+                zoom: 8                    // try: http://www.getlatlon.com
+            },
+            zoomRange: [2, 15],             // Limit zooming on the map to these levels
+            features: [                     // Map features (see readme.md)
+                'zoomwheel',
+                'movetips',
+                'tooltips',
+                'zoombox',
+                'zoompan',
+                'share',
+                'legend'
+            ]
+        });
+        
+        main.layers({
+               // easey params example:
+               // center: {                   // Optionally reposition the map.
+                //    lat: 38.910606275724,   // New center point and zoom level
+                  //  lon: -77.00126406355,   // for the map. Specific either
+                  //  zoom: 14,               // lat and lon, zoom, or both.
+                  //  ease: 1000               // Optional time to animimate moving
+               // }                           // the map in milliseconds.
+          bedrock: { api: 'http://a.tiles.mapbox.com/v3/vanhoesenj.VTBedrock.jsonp' },
+          surf: { api: 'http://a.tiles.mapbox.com/v3/vanhoesenj.VtSurfGeo.jsonp' },
+          soils: { api: 'http://a.tiles.mapbox.com/v3/landplanner.vtsoils2.jsonp' }
+        });
+    </script>
+
+</body>
+</html>
